@@ -1,0 +1,5 @@
+{
+  "atom-text-editor": {
+    "cmd-shift-e": "atom-reshape-js:arrow-function-with-expression-body"
+  }
+}
