@@ -1,7 +1,5 @@
 /* @flow */
 
-type Node = any;
-
 export function transformAst(node: Node, cb: Node => ?Node): Node {
   const transformed = cb(node);
   if (transformed != null) {
@@ -10,7 +8,12 @@ export function transformAst(node: Node, cb: Node => ?Node): Node {
   if (Array.isArray(node)) {
     const newNode = [];
     for (let i = 0; i < node.length; i++) {
-      newNode[i] = transformAst(node[i], cb);
+      const transformed = transformAst(node[i], cb);
+      if (Array.isArray(transformed)) {
+        newNode.push(...transformed);
+      } else {
+        newNode.push(transformed);
+      }
     }
     return newNode;
   }

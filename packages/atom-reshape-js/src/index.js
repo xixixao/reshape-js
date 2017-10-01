@@ -8,7 +8,11 @@ let subscriptions: ?CompositeDisposable = null;
 
 export function activate(state: ?Object): void {
   subscriptions = new CompositeDisposable();
-  const commands = ['arrow-function-with-expression-body'];
+  const commands = [
+    'arrow-function-with-expression-body',
+    'stateless-component',
+    'class-component',
+  ];
   commands.forEach(command => {
     (subscriptions: any).add(
       atom.commands.add('atom-text-editor', `atom-reshape-js:${command}`, () =>

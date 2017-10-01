@@ -1,5 +1,4 @@
 type Node = any;
-type NewNode = any;
-type ResultNode = Node | NewNode;
+type Nodes = Array<Node>;
 type Index = number;
-type Reshape = Node => ?Array<[Node, ResultNode]>;
+type Reshape = Node => ?Array<[Node, Node | Nodes]>;

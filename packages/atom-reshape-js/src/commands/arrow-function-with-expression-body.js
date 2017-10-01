@@ -1,9 +1,12 @@
 /* @flow */
 
+import {is} from '../parse/is';
+import {arrowDeclaration, arrowExpression} from '../build/arrows';
+
 export function reshape(
   fn: Node,
   unsafe: boolean = true,
-): ?Array<[Node, ResultNode]> {
+): ?Array<[Node, Node | Nodes]> {
   if (is(fn, 'ArrowFunctionExpression')) {
     const result = getResult(fn, unsafe);
     if (result !== null) {
@@ -13,13 +16,13 @@ export function reshape(
   if (unsafe && is(fn, 'FunctionDeclaration')) {
     const result = getResult(fn, unsafe);
     if (result !== null) {
-      return [[fn, arrowDeclaration(fn, result)]];
+      return [[fn, arrowDeclaration(fn.id, fn.params, result)]];
     }
   }
   if (unsafe && is(fn, 'FunctionExpression')) {
     const result = getResult(fn, unsafe);
     if (result !== null) {
-      return [[fn, arrowExpression(fn, result)]];
+      return [[fn, arrowExpression(fn.params, result)]];
     }
   }
   return null;
@@ -42,24 +45,3 @@ const getResult = (fn, unsafe) => {
   }
   return null;
 };
-
-const arrowDeclaration = (fn, result) => ({
-  type: 'VariableDeclaration',
-  kind: 'const',
-  declarations: [
-    {
-      type: 'VariableDeclarator',
-      id: fn.id,
-      init: arrowExpression(fn, result),
-    },
-  ],
-});
-
-const arrowExpression = (fn, result) => ({
-  type: 'ArrowFunctionExpression',
-  expression: true,
-  params: fn.params,
-  body: result,
-});
-
-const is = (node, type) => node.type === type;
