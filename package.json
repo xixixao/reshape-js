@@ -1,5 +1,59 @@
 {
-	"devDependencies": {
-		"lerna": "^2.2.0"
-	}
+  "name": "atom-reshape-js",
+  "version": "0.0.1",
+  "description": "Reshape your JavaScript using Atom commands",
+  "keywords": [
+    "codemod",
+    "javascript",
+    "refactor",
+    "reshape",
+    "atom",
+    "nuclide"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "repository": "https://github.com/xixixao/reshape-js",
+  "scripts": {
+    "build": "yarn run clean && babel src --out-dir lib",
+    "clean": "rm -rf lib",
+    "lint": "flow check --show-all-errors && eslint .",
+    "test": "yarn run lint && jest",
+    "watch": "yarn run clean && babel src --out-dir lib --watch"
+  },
+  "dependencies": {
+    "babel-generator": "7.0.0-beta.2",
+    "babylon": "7.0.0-beta.23"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "6.1.2",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "3.5.0",
+    "eslint-plugin-babel": "3.3.0",
+    "eslint-plugin-flowtype": "2.6.1",
+    "eslint-plugin-prefer-object-spread": "1.1.0",
+    "flow-bin": "^0.52.0",
+    "jest": "^20.0.4"
+  },
+  "engines": {
+    "atom": ">=1.20.1",
+    "node": ">=4.3.2"
+  },
+  "babel": {
+    "sourceMap": "inline",
+    "presets": ["flow", "env", "stage-2"]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": ["__tests__/fixtures/"]
+  },
+  "consumedServices": {
+    "autoreload": {
+      "versions": {
+        "^0.0.1": "consumeAutoreload"
+      }
+    }
+  }
 }
