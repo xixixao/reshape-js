@@ -1,6 +1,6 @@
 {
   "name": "atom-reshape-js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Reshape your JavaScript using Atom commands",
   "keywords": [
     "codemod",
